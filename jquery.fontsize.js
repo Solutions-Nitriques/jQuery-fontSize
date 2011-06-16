@@ -17,7 +17,7 @@
 * 	elements: p:not(.fixed-font-size)
 * });
 * 
-* 2- With options: toggle all <p> only between 100% to 60%
+* 3- With options: toggle all <p> only between 100% to 60%
 * $('#plustext').ntr$fontSize({
 * 	size: [1, 0.9, 0.8, 0.7, 0.6]
 * 
@@ -142,6 +142,8 @@
 			
 			// bind event
 			t.click(adujstFontSize);
+			
+			return t;
 		}
 	}); // extend
 
