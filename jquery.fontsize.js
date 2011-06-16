@@ -61,11 +61,11 @@
 
 			var opts = $.extend({}, defaults, options),
 				p = 0,
+				t = $(this),
 				key = 'font-size',
 				key_u = 'font-size-unit',
 				clas = '[fontSize] ',
-				cookie = key + new Date().getTime(),
-				t = $(this);
+				cookie = key + t.selector;
 			
 			if (!t || !t.length) {
 				//console.log(clas + 'target element not found');
@@ -128,13 +128,15 @@
 			if (opts.useCookie) {
 				var c = $.cookie(cookie);
 				
-				c = parseInt(c);
-				
-				if (c >= 0 && c < opts.sizes.length) {
-					// update position
-					p = c;
-					// adjust font to good size
-					adujstFontSize(null);
+				if (c) { // prevent unnecessary parsing
+					c = parseInt(c);
+					
+					if (c >= 0 && c < opts.sizes.length) {
+						// update position
+						p = c;
+						// adjust font to good size
+						adujstFontSize(null);
+					}
 				}
 			}
 			
