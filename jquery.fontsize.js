@@ -76,7 +76,7 @@
 	
 			function adjustFontSize(e) {
 				
-				var d = $(document).data(key), // retrieve current pointer
+				var d = $(document).data(cookie), // retrieve current pointer
 					p = isNaN(d)?0:parseInt(d, 10);
 				
 				// increment pointer
@@ -85,7 +85,7 @@
 				}
 				
 				// save pointer
-				$(document).data(key, p);
+				$(document).data(cookie, p);
 				
 				console.log(clas + 'index:' + p);
 				
@@ -139,7 +139,7 @@
 					
 					if (c >= 0 && c < opts.sizes.length) {
 						// save position
-						$(document).data(key, --c); // -- since the pointer will be increment in adjustFontSize
+						$(document).data(cookie, --c); // -- since the pointer will be increment in adjustFontSize
 						// adjust font to good size
 						adjustFontSize.call(t, null);
 					}
