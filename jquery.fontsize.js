@@ -60,7 +60,6 @@
 	    ntr$fontSize: function(options) {
 
 			var opts = $.extend({}, defaults, options),
-				p = 0,
 				t = $(this),
 				key = 'font-size',
 				key_u = 'font-size-unit',
@@ -75,13 +74,20 @@
 			// validate cookie plugin
 			opts.useCookie = opts.useCookie && $.cookie;
 	
-			function adujstFontSize(e) {
-				// update pointer
+			function adjustFontSize(e) {
+				
+				var d = $(document).data(key), // retrieve current pointer
+					p = isNaN(d)?0:parseInt(d, 10);
+				
+				// increment pointer
 				if (++p >= opts.sizes.length) {
 					p = 0;
 				}
 				
-				console.log(clas + p);
+				// save pointer
+				$(document).data(key, p);
+				
+				console.log(clas + 'index:' + p);
 				
 				// for each elements
 				$(opts.elements).each(function() {
@@ -104,7 +110,7 @@
 				}
 				
 				return false;
-			}
+			};
 			
 			
 			// init code
@@ -129,19 +135,19 @@
 				var c = $.cookie(cookie);
 				
 				if (c) { // prevent unnecessary parsing
-					c = parseInt(c);
+					c = parseInt(c, 10);
 					
 					if (c >= 0 && c < opts.sizes.length) {
-						// update position
-						p = c;
+						// save position
+						$(document).data(key, --c); // -- since the pointer will be increment in adjustFontSize
 						// adjust font to good size
-						adujstFontSize(null);
+						adjustFontSize.call(t, null);
 					}
 				}
 			}
 			
 			// bind event
-			t.click(adujstFontSize);
+			t.click(adjustFontSize);
 			
 			return t;
 		}
